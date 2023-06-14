@@ -1,0 +1,23 @@
+.list-group-item:first-child {
+    border-top-right-radius: 0;
+}
+
+.list-group-item:last-child {
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+}
+
+.list-group-item:hover {
+    background-color: #f5f5f5;
+}
+
+.list-group-item {
+    border-left: none;
+    border-top: none;
+    border-right: none;
+}
+
+.list-group-item:not(.active) p {
+    font-size: 0.8rem;
+    color: #727272;
+}

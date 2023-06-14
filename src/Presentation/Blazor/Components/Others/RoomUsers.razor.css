@@ -1,0 +1,8 @@
+.room-users {
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.room-users-count:hover {
+    text-decoration: underline;
+}

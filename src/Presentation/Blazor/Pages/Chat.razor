@@ -1,0 +1,43 @@
+@page "/chat"
+
+<div class="row g-0 border rounded">
+    <div class="col-2 overflow-y-scroll" style="height: 88vh;">
+        <ul class="list-group">
+            @for (int i = 0; i < 15; i++)
+            {
+                <ChatListItem />
+            }
+        </ul>
+    </div>
+    <div class="col-10" style="height: 88vh;">
+        <div class="row g-0 h-100">
+            <div class="col-10 d-flex flex-column justify-content-between border-end h-100">
+                <div class="d-flex justify-content-between bg-light p-3 shadow-sm">
+                    <h6>Lorem ipsum dolor sit amet.</h6>
+                    <span class="cursor-pointer text-secondary">
+                        <i class="bi bi-gear-fill"></i>
+                    </span>
+                </div>
+                <div class="flex-fill h-100 overflow-y-scroll">
+                    <div class="row g-0">
+                        @for (int i = 0; i < 5; i++)
+                        {
+                            <Message IsSender="i%10 == 0" />
+                        }
+                    </div>
+                </div>
+                <div>
+                    <div class="input-group">
+                        <input type="text" class="form-control rounded-0" placeholder="mesajını yaz">
+                        <button class="btn btn-primary rounded-0">
+                            <i class="bi bi-send-fill"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <ChatUsers />
+            </div>
+        </div>
+    </div>
+</div>

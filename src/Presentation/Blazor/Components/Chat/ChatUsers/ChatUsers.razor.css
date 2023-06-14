@@ -1,0 +1,21 @@
+.chat-users {
+    padding: 0;
+    list-style: none;
+}
+
+.chat-users-user {
+    font-size: 0.9rem;
+}
+
+.chat-users-username {
+    position: relative;
+}
+
+.chat-user-status {
+    position: absolute;
+    padding: 4px;
+    background-color: var(--bs-success);
+    border-radius: 100%;
+    left: calc(100% + 4px);
+    top: calc(50% - 4px);
+}
