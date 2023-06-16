@@ -1,4 +1,6 @@
+using Api.Middlewares;
 using Application;
+using FluentValidation.AspNetCore;
 using Persistance;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +12,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.ApplicationRegister();
-builder.Services.PersistanceRegister(builder.Configuration);
+builder.Services
+    .AddCors(cors =>
+    {
+        cors.AddDefaultPolicy(policy =>
+        {
+            policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+        });
+    })
+    .ApplicationRegister()
+    .PersistanceRegister(builder.Configuration)
+    .AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters();
 
 var app = builder.Build();
 
@@ -21,7 +33,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseMiddleware<ExceptionHandlerMiddleware>();
+app.UseCors();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

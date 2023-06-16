@@ -87,27 +87,6 @@ namespace Persistance.Migrations
                     b.ToTable("Rooms");
                 });
 
-            modelBuilder.Entity("Domain.RoomUser", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RoomId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoomId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RoomUsers");
-                });
-
             modelBuilder.Entity("Domain.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -137,6 +116,27 @@ namespace Persistance.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Domain.UserRoom", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRooms");
                 });
 
             modelBuilder.Entity("Domain.Message", b =>
@@ -169,16 +169,16 @@ namespace Persistance.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.RoomUser", b =>
+            modelBuilder.Entity("Domain.UserRoom", b =>
                 {
                     b.HasOne("Domain.Room", "Room")
-                        .WithMany("RoomUsers")
+                        .WithMany("UserRooms")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Domain.User", "User")
-                        .WithMany("RoomUsers")
+                        .WithMany("UserRooms")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -192,16 +192,16 @@ namespace Persistance.Migrations
                 {
                     b.Navigation("Messages");
 
-                    b.Navigation("RoomUsers");
+                    b.Navigation("UserRooms");
                 });
 
             modelBuilder.Entity("Domain.User", b =>
                 {
                     b.Navigation("Messages");
 
-                    b.Navigation("RoomUsers");
-
                     b.Navigation("Rooms");
+
+                    b.Navigation("UserRooms");
                 });
 #pragma warning restore 612, 618
         }

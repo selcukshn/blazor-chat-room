@@ -6,6 +6,8 @@ namespace Persistance.Context
 {
     public class ChatRoomContext : DbContext
     {
+        public ChatRoomContext() { }
+        public ChatRoomContext(DbContextOptions<ChatRoomContext> options) : base(options) { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
