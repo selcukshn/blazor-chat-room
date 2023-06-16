@@ -19,7 +19,7 @@ namespace Persistance
             service.AddScoped<IRoomRepository, RoomRepository>();
             service.AddScoped<IUserRepository, UserRepository>();
             service.AddScoped<IMessageRepository, MessageRepository>();
-            service.AddScoped<IRoomUserRepository, RoomUserRepository>();
+            service.AddScoped<IUserRoomRepository, UserRoomRepository>();
 
             return service;
         }

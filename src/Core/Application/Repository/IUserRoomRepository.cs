@@ -3,7 +3,7 @@ using Domain;
 
 namespace Application.Repository
 {
-    public interface IRoomUserRepository : IRepository<RoomUser>
+    public interface IUserRoomRepository : IRepository<UserRoom>
     {
 
     }

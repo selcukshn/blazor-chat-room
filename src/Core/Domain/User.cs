@@ -9,7 +9,7 @@ namespace Domain
         public string Password { get; set; }
         public DateTime RegisterDate { get; set; }
 
-        public virtual List<RoomUser> RoomUsers { get; set; }
+        public virtual List<UserRoom> UserRooms { get; set; }
         public virtual List<Room> Rooms { get; set; }
         public virtual List<Message> Messages { get; set; }
     }

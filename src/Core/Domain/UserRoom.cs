@@ -2,7 +2,7 @@ using Domain.Base;
 
 namespace Domain
 {
-    public class RoomUser : BaseEntity
+    public class UserRoom : BaseEntity
     {
         public Guid UserId { get; set; }
         public Guid RoomId { get; set; }

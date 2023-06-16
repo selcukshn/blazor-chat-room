@@ -11,7 +11,7 @@ namespace Domain
         public Guid UserId { get; set; }
 
         public virtual User User { get; set; }
-        public virtual ICollection<RoomUser> RoomUsers { get; set; }
+        public virtual ICollection<UserRoom> UserRooms { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
     }
 }

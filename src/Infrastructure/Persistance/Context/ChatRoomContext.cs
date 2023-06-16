@@ -20,6 +20,6 @@ namespace Persistance.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<RoomUser> RoomUsers { get; set; }
+        public DbSet<UserRoom> UserRooms { get; set; }
     }
 }
