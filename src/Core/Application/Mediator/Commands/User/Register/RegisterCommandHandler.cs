@@ -2,7 +2,7 @@ using Application.Mediator.Base;
 using Application.Repository;
 using AutoMapper;
 
-namespace Application.Mediator.Queries.Auth.Register
+namespace Application.Mediator.Commands.Auth.Register
 {
     public class RegisterCommandHandler : GenericHandler<IUserRepository, RegisterCommand, bool>
     {

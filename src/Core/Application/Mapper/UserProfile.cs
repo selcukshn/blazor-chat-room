@@ -1,4 +1,4 @@
-using Application.Mediator.Queries.Auth.Register;
+using Application.Mediator.Commands.Auth.Register;
 using Application.Services;
 using AutoMapper;
 using Domain;

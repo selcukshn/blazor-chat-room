@@ -1,6 +1,6 @@
 using Api.Controllers.Base;
 using Application.Mediator.Queries.Auth.Login;
-using Application.Mediator.Queries.Auth.Register;
+using Application.Mediator.Commands.Auth.Register;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

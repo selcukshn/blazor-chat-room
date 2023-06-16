@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Application.Mediator.Queries.Auth.Register
+namespace Application.Mediator.Commands.Auth.Register
 {
     public class RegisterCommand : IRequest<bool>
     {
