@@ -11,8 +11,8 @@ namespace Application.Services
     {
         private readonly IConfiguration Configuration;
         private string JWTKey => Configuration["JWT:Key"];
-        private string JWTIssuer => Configuration["JWT:Key"];
-        private string JWTAudience => Configuration["JWT:Key"];
+        private string JWTIssuer => Configuration["JWT:Issuer"];
+        private string JWTAudience => Configuration["JWT:Audience"];
         private string JWTDay => Configuration["JWT:ValidDay"];
         public JWTService(IConfiguration configuration)
         {
