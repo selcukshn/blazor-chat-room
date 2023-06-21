@@ -7,6 +7,7 @@ namespace Domain
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public bool EmailConfirmed { get; set; }
         public DateTime RegisterDate { get; set; }
 
         public virtual List<UserRoom> UserRooms { get; set; }

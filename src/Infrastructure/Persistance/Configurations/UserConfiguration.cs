@@ -12,6 +12,7 @@ namespace Persistance.Configurations
             builder.Property(e => e.Email).IsRequired().HasMaxLength(200);
             builder.Property(e => e.Username).IsRequired().HasMaxLength(200);
             builder.Property(e => e.Password).IsRequired().HasMaxLength(512);
+            builder.Property(e => e.EmailConfirmed).HasDefaultValue(false);
             builder.Property(e => e.RegisterDate).HasDefaultValueSql("getdate()");
         }
     }
