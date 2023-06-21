@@ -1,4 +1,3 @@
-using Application.Services;
 using MediatR;
 
 namespace Application.Mediator.Queries.Auth.Login

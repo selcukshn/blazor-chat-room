@@ -1,8 +1,50 @@
 ﻿@page "/"
-
+@using Application.Mediator.Queries.Room.GetRooms
+@using Application.Mediator.Commands.Room.Create
 <PageTitle>Index</PageTitle>
 
-<div class="row">
-    <Room></Room>
-    <Room AlreadyJoined="true"></Room>
-</div>
+
+<RoomStack>
+    <RoomStackBody>
+        <div class="col-12 bg-light p-3">
+            <h5 class="mb-3">Yeni oda</h5>
+            <div class="input-group">
+                <input @bind-value="NewRoom.Title" type="text" class="form-control" placeholder="Başlık">
+                <input @bind-value="NewRoom.Description" type="text" class="form-control" placeholder="Açıklama">
+                <div class="input-group-text">
+                    <div class="form-check">
+                        <label for="isPublicCheck" class="form-check-label">Herkese açık</label>
+                        <input @bind-value="NewRoom.IsPublic" id="isPublicCheck" type="checkbox"
+                            class="form-check-input">
+                    </div>
+                </div>
+                <button @onclick="CreateRoom" class="btn btn-primary btn-sm">Oluştur</button>
+            </div>
+        </div>
+        @if (Rooms != null)
+        {
+            foreach (var room in Rooms)
+            {
+                <Room AlreadyJoined="@(bool.Parse(new Random().Next(0,1).ToString()))"></Room>
+            }
+        }
+    </RoomStackBody>
+</RoomStack>
+
+@code {
+    public List<GetRoomsViewModel>? Rooms { get; set; }
+    CreateRoomCommand NewRoom = new CreateRoomCommand();
+    [Inject] public IRoomRequestService RoomRequestService { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await RoomRequestService.GetRoomsAsync(new GetRoomsQuery() { });
+        Rooms = response.Model;
+    }
+    public async Task CreateRoom()
+    {
+        var response = await RoomRequestService.CreateRoomAsync(NewRoom);
+    }
+
+}
+

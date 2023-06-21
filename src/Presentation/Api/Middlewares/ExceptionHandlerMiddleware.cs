@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text;
+using Common.Response;
 using Newtonsoft.Json;
 
 namespace Api.Middlewares
@@ -29,7 +30,7 @@ namespace Api.Middlewares
         {
             context.Response.Headers.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            await context.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(exception.Message)));
+            await context.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(new ExceptionResponse(exception.Message))));
         }
     }
 }

@@ -25,21 +25,21 @@ namespace Blazor.Extensions.Blazored.LocalStorage
         #endregion
 
         #region User
-        public static void SetUserInformation(this ISyncLocalStorageService storage, AuthorizedUser model)
+        public static void SetAuthorizedUser(this ISyncLocalStorageService storage, AuthorizedUser model)
         {
             storage.SetItem<AuthorizedUser>(LocalStorageConstant.UserKey, model);
         }
-        public static AuthorizedUser? GetUserInformation(this ISyncLocalStorageService storage)
+        public static AuthorizedUser? GetAuthorizedUser(this ISyncLocalStorageService storage)
         {
             return storage.GetItem<AuthorizedUser>(LocalStorageConstant.UserKey) ?? null;
         }
-        public static void RemoveUserInformation(this ISyncLocalStorageService storage)
+        public static void RemoveAuthorizedUser(this ISyncLocalStorageService storage)
         {
             storage.RemoveItem(LocalStorageConstant.UserKey);
         }
         public static bool HaveUser(this ISyncLocalStorageService storage)
         {
-            return storage.GetUserInformation() != null;
+            return storage.GetAuthorizedUser() != null;
         }
         #endregion
     }

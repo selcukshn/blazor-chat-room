@@ -1,17 +1,37 @@
 @page "/login"
+@using Application.Mediator.Queries.Auth.Login
+@using Services.Request.Auth
+@using System.Text
 
 <div class="d-flex align-items-center justify-content-center" style="padding-top: 200px;">
     <div class="d-flex flex-column align-items-center justify-content-center w-25">
+        <p class="text-danger"> @Message</p>
         <h1 class="fw-normal mb-3">Giriş yap</h1>
         <div class="form-floating w-100">
-            <input id="email" class="form-control rounded-bottom-0" type="email" placeholder="e-posta adresi">
+            <input @bind-value="LoginModel.Email" id="email" class="form-control rounded-bottom-0" type="email"
+                placeholder="e-posta adresi">
             <label for="email">E-posta adresi</label>
         </div>
         <div class="form-floating w-100">
-            <input id="password" class="form-control rounded-top-0" type="password" placeholder="şifre">
+            <input @bind-value="LoginModel.Password" id="password" class="form-control rounded-top-0" type="password"
+                placeholder="şifre">
             <label for="password">Şifre</label>
         </div>
-        <button class="btn btn-success btn-lg w-100 mt-3">Giriş yap</button>
+        <button @onclick="LoginAsync" class="btn btn-success btn-lg w-100 mt-3">Giriş yap</button>
     </div>
-
 </div>
+
+@code {
+    LoginQuery LoginModel = new LoginQuery();
+    public string Message { get; set; }
+    [Inject] public IAuthRequestService AuthRequestService { get; set; }
+    [Inject] public NavigationManager NavigationManager { get; set; }
+    public async Task LoginAsync()
+    {
+        var response = await AuthRequestService.LoginAsync(LoginModel);
+        if (response.IsSuccess)
+            NavigationManager.NavigateTo("/");
+        Message = JsonConvert.SerializeObject(response.Model);
+    }
+
+}

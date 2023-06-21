@@ -1,0 +1,54 @@
+@page "/register"
+@using Application.Mediator.Commands.Auth.Register
+@using Services.Request.Auth
+
+<EditForm Model="@NewUser" OnValidSubmit="RegisterAsync">
+    <div class=" d-flex align-items-center justify-content-center" style="padding-top: 200px;">
+        <div class="d-flex flex-column align-items-center justify-content-center w-25">
+            @if (State.Status == ResponseStatus.Error || State.Status == ResponseStatus.NotFound)
+            {
+                <p class="text-danger"> @State.Message</p>
+            }
+            else if (State.Status == ResponseStatus.Success)
+            {
+                <p class="text-success">Hesabınız oluşturuldu. E-posta adresinize gelen mesajdan hesabınızı onayladıktan
+                    sonra
+                    giriş yapabilirsiniz.</p>
+            }
+            <h1 class="fw-normal mb-3">Kayıt ol</h1>
+            <div class="form-floating w-100">
+                <input @bind-value="NewUser.Username" id="username" class="form-control rounded-bottom-0" type="text"
+                    placeholder="e-posta adresi">
+                <label for="username">Kullanıcı adı</label>
+            </div>
+            <div class="form-floating w-100">
+                <input @bind-value="NewUser.Email" id="email" class="form-control rounded-0" type="email"
+                    placeholder="e-posta adresi">
+                <label for="email">E-posta adresi</label>
+            </div>
+            <div class="form-floating w-100">
+                <input @bind-value="NewUser.Password" id="password" class="form-control rounded-0" type="password"
+                    placeholder="şifre">
+                <label for="password">Şifre</label>
+            </div>
+            <div class="form-floating w-100">
+                <input @bind-value="NewUser.RePassword" id="repassword" class="form-control rounded-top-0"
+                    type="password" placeholder="şifre tekrar">
+                <label for="repassword">Şifre tekrar</label>
+            </div>
+            <button type="submit" class="btn btn-success btn-lg w-100 mt-3">Giriş yap</button>
+        </div>
+    </div>
+</EditForm>
+@code {
+    RegisterCommand NewUser = new RegisterCommand();
+    RequestState State = new RequestState(ResponseStatus.None);
+    [Inject] public IAuthRequestService AuthRequestService { get; set; }
+    [Inject] public NavigationManager NavigationManager { get; set; }
+    public async Task RegisterAsync()
+    {
+        var response = await AuthRequestService.RegisterAsync(NewUser);
+        State.SetResponse(response);
+    }
+
+}

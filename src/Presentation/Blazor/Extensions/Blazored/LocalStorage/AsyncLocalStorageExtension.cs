@@ -25,21 +25,21 @@ namespace Blazor.Extensions.Blazored.LocalStorage
         #endregion
 
         #region User
-        public static async Task SetUserInformationAsync(this ILocalStorageService storage, AuthorizedUser model)
+        public static async Task SetAuthorizedUserAsync(this ILocalStorageService storage, AuthorizedUser model)
         {
             await storage.SetItemAsync<AuthorizedUser>(LocalStorageConstant.UserKey, model);
         }
-        public static async Task<AuthorizedUser?> GetUserInformationAsync(this ILocalStorageService storage)
+        public static async Task<AuthorizedUser?> GetAuthorizedUserAsync(this ILocalStorageService storage)
         {
             return await storage.GetItemAsync<AuthorizedUser>(LocalStorageConstant.UserKey) ?? null;
         }
-        public static async Task RemoveUserInformationAsync(this ILocalStorageService storage)
+        public static async Task RemoveAuthorizedUserAsync(this ILocalStorageService storage)
         {
             await storage.RemoveItemAsync(LocalStorageConstant.UserKey);
         }
         public static async Task<bool> HaveUserAsync(this ILocalStorageService storage)
         {
-            return await storage.GetUserInformationAsync() != null;
+            return await storage.GetAuthorizedUserAsync() != null;
         }
         #endregion
     }

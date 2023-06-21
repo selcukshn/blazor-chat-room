@@ -1,3 +1,4 @@
+using Application.Extensions;
 using MediatR;
 
 namespace Application.Mediator.Queries.Room.GetRooms
@@ -19,11 +20,19 @@ namespace Application.Mediator.Queries.Room.GetRooms
         private int skip;
         public int Skip
         {
-            get => skip; set
+            get => skip;
+            set
             {
                 if (value > 0)
                     skip = value;
             }
+        }
+        public override string ToString()
+        {
+            string query = $"?take={this.take}&skip={this.skip}";
+            if (UserId.NotNullAndEmpty())
+                query += $"&userId={this.UserId}";
+            return query;
         }
     }
 }

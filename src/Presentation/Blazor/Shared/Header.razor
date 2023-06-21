@@ -8,7 +8,15 @@
             <NavLink href="/chat" ActiveClass="active" class="nav-link">Mesajlar</NavLink>
         </div>
         <div>
-            <a href="/login" class="btn btn-sm btn-outline-primary">Giriş yap</a>
+            <AuthorizeView>
+                <Authorized>
+                    <a href="/logout" class="btn btn-sm btn-danger">Çıkış yap</a>
+                </Authorized>
+                <NotAuthorized>
+                    <a href="/register" class="btn btn-sm btn-outline-danger">Kayıt ol</a>
+                    <a href="/login" class="btn btn-sm btn-outline-primary">Giriş yap</a>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
     </div>
 </heander>

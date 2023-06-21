@@ -15,6 +15,7 @@ namespace Application.Mediator.Queries.Auth.Login
             RuleFor(e => e.Password)
             .NotEmpty()
             .NotNull()
+            .MinimumLength(6)
             .MaximumLength(100);
         }
     }

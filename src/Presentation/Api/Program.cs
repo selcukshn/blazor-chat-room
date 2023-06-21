@@ -1,6 +1,7 @@
 using Api.Extensions;
 using Api.Middlewares;
 using Application;
+using Common.Response;
 using FluentValidation.AspNetCore;
 using Persistance;
 
@@ -8,7 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers()
+    .SuppressFluentValidationExceptionModel<ExceptionResponse>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
