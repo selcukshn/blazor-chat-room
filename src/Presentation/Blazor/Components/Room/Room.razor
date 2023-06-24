@@ -1,16 +1,14 @@
+@using Application.Mediator.Queries.Room.GetRooms
+
 <div class="col-3">
     <div class="card">
         <div class="card-header d-flex justify-content-between">
-            <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
-            <RoomUsers />
+            <h5 class="card-title">@Data?.Title</h5>
+            <RoomUsers Count="Data?.UserCount"/>
         </div>
-        <div class="card-body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti amet asperiores fugit commodi aliquid
-            nihil
-            atque magnam! Facere, reiciendis officiis?
-        </div>
+        <div class="card-body">@Data?.Description</div>
         <div class="card-footer text-end">
-            @if (AlreadyJoined)
+            @if (Data.AlreadyJoined)
             {
                 <button class="btn btn-sm btn-outline-danger">Ayrıl</button>
                 <button class="btn btn-sm btn-primary">Git</button>
@@ -24,5 +22,5 @@
 </div>
 
 @code {
-    [Parameter] public bool AlreadyJoined { get; set; }
+    [Parameter] public GetRoomsViewModel?  Data { get; set; }
 }

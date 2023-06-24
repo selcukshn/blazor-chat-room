@@ -6,7 +6,16 @@ namespace Application.Mediator.Commands.Room.Create
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public bool IsPublic { get; set; }
+
+        private bool _isPublic = true;
+        public bool IsPublic
+        {
+            get => _isPublic;
+            set
+            {
+                _isPublic = Convert.ToBoolean(value);
+            }
+        }
         public Guid UserId { get; set; }
     }
 }

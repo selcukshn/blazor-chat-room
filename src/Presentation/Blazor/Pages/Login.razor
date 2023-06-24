@@ -1,11 +1,17 @@
 @page "/login"
 @using Application.Mediator.Queries.Auth.Login
 @using Services.Request.Auth
-@using System.Text
 
 <div class="d-flex align-items-center justify-content-center" style="padding-top: 200px;">
     <div class="d-flex flex-column align-items-center justify-content-center w-25">
-        <p class="text-danger"> @Message</p>
+        @if (State.Status == ResponseStatus.Error || State.Status == ResponseStatus.NotFound)
+        {
+            <p class="text-danger">@State.Message</p>
+        }
+        else
+        {
+            <p>@State.Message</p>
+        }
         <h1 class="fw-normal mb-3">Giriş yap</h1>
         <div class="form-floating w-100">
             <input @bind-value="LoginModel.Email" id="email" class="form-control rounded-bottom-0" type="email"
@@ -17,21 +23,30 @@
                 placeholder="şifre">
             <label for="password">Şifre</label>
         </div>
-        <button @onclick="LoginAsync" class="btn btn-success btn-lg w-100 mt-3">Giriş yap</button>
+        <button @onclick="LoginAsync" class="btn btn-success btn-lg w-100 mt-3" disabled="@(State.IsWaiting)">
+            Giriş yap
+            @if (State.IsWaiting)
+            {
+                <div class="spinner-border spinner-border-sm" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            }
+        </button>
     </div>
 </div>
 
 @code {
     LoginQuery LoginModel = new LoginQuery();
-    public string Message { get; set; }
     [Inject] public IAuthRequestService AuthRequestService { get; set; }
     [Inject] public NavigationManager NavigationManager { get; set; }
+    RequestState State = new RequestState(ResponseStatus.None);
     public async Task LoginAsync()
     {
+        State.Status = ResponseStatus.Waiting;
         var response = await AuthRequestService.LoginAsync(LoginModel);
         if (response.IsSuccess)
             NavigationManager.NavigateTo("/");
-        Message = JsonConvert.SerializeObject(response.Model);
+        State.SetResponse(response);
     }
 
 }

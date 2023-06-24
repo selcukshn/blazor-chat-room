@@ -1,12 +1,10 @@
-using Application.Mediator.Queries.Auth.Login;
 using Blazor.Services.Request.Base;
-using Common.Response;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Blazor.Services.Request.User
 {
     public class UserRequestService : BaseRequest, IUserRequestService
     {
-        public UserRequestService(HttpClient client) : base(client) { }
-
+        public UserRequestService(HttpClient client, AuthenticationStateProvider authenticationStateProvider) : base(client, authenticationStateProvider) { }
     }
 }

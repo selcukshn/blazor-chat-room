@@ -1,4 +1,9 @@
 <div class="room-users d-flex gap-1 text-secondary">
     <i class="bi bi-people-fill"></i>
-    <span class="cursor-pointer room-users-count">25</span>
+    <span class="cursor-pointer room-users-count">@Count</span>
 </div>
+
+@code {
+
+    [Parameter] public int? Count { get; set; }
+}

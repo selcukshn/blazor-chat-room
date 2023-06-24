@@ -16,13 +16,26 @@ namespace Application.Mediator.Queries.Room.GetRooms
             .Include(e => e.User)
             .Include(e => e.UserRooms)
             .Skip(request.Skip)
-            .Take(request.Take)
-            .Where(e => e.IsPublic);
+            .Take(request.Take);
 
             if (request.UserId.NotNullAndEmpty())
-                roomsQuery = roomsQuery.Where(e => !e.IsPublic && e.UserRooms.Any(r => r.UserId == request.UserId));
+                roomsQuery = roomsQuery.Where(e => e.IsPublic || (!e.IsPublic && e.UserRooms.Any(r => r.UserId == request.UserId)));
+            else
+                roomsQuery = roomsQuery.Where(e => e.IsPublic);
 
-            return base.Mapper.Map<List<GetRoomsViewModel>>(await roomsQuery.ToListAsync());
+            var rooms = await roomsQuery.ToListAsync();
+
+            return rooms.Select(e => new GetRoomsViewModel()
+            {
+                AlreadyJoined = request.UserId.NotNullAndEmpty() ? e.UserRooms.Any(a => a.UserId == request.UserId) : false,
+                CreatedDate = e.CreatedDate,
+                Description = e.Description,
+                Id = e.Id,
+                IsPublic = e.IsPublic,
+                Title = e.Title,
+                UserCount = e.UserRooms.Count,
+                Username = e.User.Username
+            }).ToList();
         }
     }
 }

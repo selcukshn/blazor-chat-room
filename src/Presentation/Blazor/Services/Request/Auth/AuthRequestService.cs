@@ -3,7 +3,6 @@ using Application.Mediator.Commands.Auth.Register;
 using Application.Mediator.Queries.Auth.Login;
 using Blazor.Extensions.Blazored.LocalStorage;
 using Blazor.Models;
-using Blazor.Services.Authentication;
 using Blazor.Services.Request.Base;
 using Blazored.LocalStorage;
 using Common.Response;
@@ -13,11 +12,9 @@ namespace Blazor.Services.Request.Auth
 {
     public class AuthRequestService : BaseRequest, IAuthRequestService
     {
-        public AuthenticationService AuthenticationState { get; set; }
         public ILocalStorageService LocalStorage { get; set; }
-        public AuthRequestService(HttpClient client, AuthenticationStateProvider authenticationState, ILocalStorageService localStorage) : base(client)
+        public AuthRequestService(HttpClient client, AuthenticationStateProvider authenticationState, ILocalStorageService localStorage) : base(client, authenticationState)
         {
-            AuthenticationState = (AuthenticationService)authenticationState;
             LocalStorage = localStorage;
         }
 
@@ -28,7 +25,7 @@ namespace Blazor.Services.Request.Auth
             {
                 await LocalStorage.SetJWTAsync(response.Model.Token);
                 await LocalStorage.SetAuthorizedUserAsync(new AuthorizedUser(response.Model));
-                AuthenticationState.NotifyLogin(response.Model.Token);
+                base.AuthenticationStateProvider.NotifyLogin(response.Model.Token);
                 base.Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", response.Model.Token);
             }
             return response;
@@ -41,7 +38,7 @@ namespace Blazor.Services.Request.Auth
         {
             await LocalStorage.RemoveJWTAsync();
             await LocalStorage.RemoveAuthorizedUserAsync();
-            AuthenticationState.NotifyLogout();
+            base.AuthenticationStateProvider.NotifyLogout();
             base.Client.DefaultRequestHeaders.Authorization = null;
         }
     }

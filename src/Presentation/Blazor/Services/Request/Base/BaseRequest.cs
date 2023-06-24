@@ -1,17 +1,20 @@
 using System.Net;
 using System.Net.Http.Json;
+using Blazor.Services.Authentication;
 using Common.Enums;
 using Common.Response;
-using Newtonsoft.Json;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Blazor.Services.Request.Base
 {
     public class BaseRequest
     {
         protected readonly HttpClient Client;
-        public BaseRequest(HttpClient client)
+        protected readonly AuthenticationService AuthenticationStateProvider;
+        public BaseRequest(HttpClient client, AuthenticationStateProvider authenticationStateProvider)
         {
             Client = client;
+            AuthenticationStateProvider = (AuthenticationService)authenticationStateProvider;
         }
 
         public async Task<RequestResponseData<TModel>> GetAsync<TModel>(string address)

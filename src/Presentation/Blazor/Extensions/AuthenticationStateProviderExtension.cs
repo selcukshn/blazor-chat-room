@@ -5,7 +5,7 @@ namespace Blazor.Extensions
 {
     public static class AuthenticationStateProviderExtension
     {
-        public static async Task<bool> HaveAuthorizedUser(this AuthenticationStateProvider provider)
+        public static async Task<bool> HaveAuthorizedUserAsync(this AuthenticationStateProvider provider)
         {
             var state = await provider.GetAuthenticationStateAsync();
             return state.User.Claims.Any();

@@ -19,6 +19,7 @@ namespace Api.Controllers
         {
             return Ok(await base.Mediator.Send(query));
         }
+
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterCommand command)

@@ -1,0 +1,43 @@
+@using Application.Mediator.Commands.Room.Create
+
+<button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#createRoomModal">
+    <i class="bi bi-plus-lg"></i> Yeni oda
+</button>
+
+<div class="modal fade" id="createRoomModal" tabindex="-1" aria-labelledby="createRoomModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="createRoomModalLabel">Yeni oda oluştur</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex gap-3 flex-column">
+                <input @bind-value="NewRoom.Title" type="text" class="form-control" placeholder="Başlık">
+                <textarea @bind="NewRoom.Description" type="text" class="form-control" placeholder="Açıklama"
+                    rows="5"></textarea>
+                <div class="form-check">
+                    <input @bind-value="NewRoom.IsPublic" id="isPublicCheck" class="form-check-input" type="checkbox"
+                        checked="@NewRoom.IsPublic">
+                    <label class="form-check-label" for="isPublicCheck">Herkese açık</label>
+                </div>
+                @NewRoom.IsPublic
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" @onclick="Create">Oluştur</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    CreateRoomCommand NewRoom = new CreateRoomCommand();
+    [Inject] public IRoomRequestService RoomRequestService { get; set; }
+    RequestState State = new RequestState(ResponseStatus.None);
+    public async Task Create()
+    {
+        System.Console.WriteLine(NewRoom.IsPublic);
+        var response = await RoomRequestService.CreateRoomAsync(NewRoom);
+        State.SetResponse(response);
+    }
+}

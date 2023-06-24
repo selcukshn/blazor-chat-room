@@ -9,5 +9,6 @@ namespace Application.Mediator.Queries.Room.GetRooms
         public DateTime CreatedDate { get; set; }
         public string Username { get; set; }
         public int UserCount { get; set; }
+        public bool AlreadyJoined { get; set; }
     }
 }

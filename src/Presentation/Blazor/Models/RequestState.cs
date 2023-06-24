@@ -8,6 +8,7 @@ namespace Blazor.Models
         public ResponseStatus Status { get; set; }
         public string? Message { get; set; }
         public string? Detail { get; set; }
+        public bool IsWaiting => Status == ResponseStatus.Waiting;
         public RequestState(ResponseStatus status)
         {
             Status = status;

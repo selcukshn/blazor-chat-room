@@ -10,10 +10,6 @@ namespace Application.Mapper
         public RoomProfile()
         {
             CreateMap<CreateRoomCommand, Room>();
-
-            CreateMap<Room, GetRoomsViewModel>()
-            .ForMember(e => e.Username, e => e.MapFrom(f => f.User.Username))
-            .ForMember(e => e.UserCount, e => e.MapFrom(f => f.UserRooms.Count));
         }
     }
 }

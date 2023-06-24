@@ -6,6 +6,10 @@ namespace Application.Mediator.Commands.Room.Create
     {
         public CreateRoomValidator()
         {
+            RuleFor(e => e.UserId)
+            .NotEmpty()
+            .NotNull();
+
             RuleFor(e => e.Title)
             .NotEmpty()
             .NotNull()
